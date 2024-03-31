@@ -1,0 +1,38 @@
+/* You are given an integer array nums and two integers minK and maxK.
+
+A fixed-bound subarray of nums is a subarray that satisfies the following conditions:
+
+The minimum value in the subarray is equal to minK.
+The maximum value in the subarray is equal to maxK.
+Return the number of fixed-bound subarrays.
+
+A subarray is a contiguous part of an array.
+*/
+
+class Solution {
+    public long countSubarrays(int[] nums, int minK, int maxK) {
+        int n=nums.length;
+        int imax=-1;
+        int imin=-1;
+        long count=0;
+        int left=0;
+        int right=0;
+        while(right<n){
+            if(nums[right]>maxK || nums[right]<minK){
+                imax=right;
+                imin=right;
+                left=right+1;
+            }
+           if(nums[right]==maxK){
+            imax=right;
+           }
+           if(nums[right]==minK){
+            imin=right;
+           }
+            count+=Math.min(imax,imin)-left+1;
+            right++;
+        }
+        return count;
+        
+    }
+}
